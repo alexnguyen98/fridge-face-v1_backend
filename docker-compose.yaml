@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  fridgeface:
+    container_name: fridgeface
+    build: ./
+    volumes:
+      - ./src/:/app/
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      FLASK_DEBUG: 1
+    depends_on:
+      - tfserving
+    networks:
+      - ml-network
+
+  tfserving:
+    container_name: tfserving
+    image: docker.io/bitnami/tensorflow-serving:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - tfserving_data:/bitnami
+      - ./tfserving/conf:/bitnami/tensorflow-serving/conf/
+      - ./tfserving/model-data:/bitnami/model-data
+    networks:
+      - ml-network
+
+volumes:
+  tfserving_data:
+    driver: local
+
+networks:
+  ml-network:
