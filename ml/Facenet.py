@@ -36,18 +36,18 @@ def crop_bb(img, detection, margin):
     return img[y1:y1+h, x1:x1+w]
 
 def crop(file):
-  det = mtcnn.detect_faces(file)[0]
-  margin = int(0.1 * file.shape[0])
-  img = crop_bb(file, det, margin);
-  return img
+    det = mtcnn.detect_faces(file)[0]
+    margin = int(0.1 * file.shape[0])
+    img = crop_bb(file, det, margin);
+    return img
 
 def process_face(file):
-  img = cv2.resize(file, (160, 160))
-  img = img.astype('float32')
-  # because facenet is pretrained with normalised inputs
-  mean, std = img.mean(), img.std();
-  img = (img - mean) / std
-  return img
+    img = cv2.resize(file, (160, 160))
+    img = img.astype('float32')
+    # because facenet is pretrained with normalised inputs
+    mean, std = img.mean(), img.std();
+    img = (img - mean) / std
+    return img
 
 def get_embedding(file):
     model = get_model()
@@ -56,15 +56,3 @@ def get_embedding(file):
     face = process_face(img)
     face = numpy.expand_dims(face, axis=0)
     return model.predict(face)
-
-# import os.path
-
-# file_name = "./ml/facenet_keras.h5"
-
-# try:
-#     my_file = open(file_name)
-#     print("file exists")
-# except IOError:
-#     print("file doesnt exist")
-
-# print("neco")

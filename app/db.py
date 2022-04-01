@@ -1,6 +1,9 @@
 import os
 import pickle # storing a python object into a serialized file
 import uuid
+import numpy
+
+threshold = 7;
 
 def get_filename():
     base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -34,3 +37,15 @@ def save_db(embedding):
     file.close()
 
     print("* User saved")
+    return id
+
+def find_user(embedding):
+    db = get_db()
+    min_dist = threshold
+    user_id = "No user found"
+    for key, value in db.items():
+        dist = numpy.linalg.norm(value - embedding)
+        if (dist < threshold):
+            min_dist = min_dist
+            user_id = str(key)
+    return user_id
