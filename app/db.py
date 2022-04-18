@@ -2,12 +2,20 @@ import os
 import pickle # storing a python object into a serialized file
 import numpy
 
+users = ['ALN', 'KAJ', 'KOP', 'TEO', 'TRP', 'ROV', 'OMO', 'RAW', "DVO", "TON", "FKI", "DAF", "JPO", "RAF", "JAM", "VEK", "KNL", "JZE", "PRS", "ADH", "MAH", "PJC", "PEC", "ARY"]
 threshold = 7;
 
 def get_filename():
     base_dir = os.path.abspath(os.path.dirname(__file__))
-    filename = os.path.join(base_dir, 'uploads', "user_db.pkl")
+    filename = os.path.join(base_dir, 'db', "user_db.pkl")
     return filename
+
+def user_exist(user):
+    return user in users
+
+def registered_exist(user):
+    db = get_db()
+    return user in db
 
 def get_db():
     global database # singleton model
@@ -47,7 +55,12 @@ def find_user(embedding):
             user_id = str(key)
     return user_id
 
-def save_file(file, user):
-    base_dir = os.path.abspath(os.path.dirname(__file__))
-    filename = os.path.join(base_dir, 'uploads/profile', user + ".jpg")
-    file.save(filename)
+def get_avaiable_users():
+    db = get_db()
+
+    arr = []
+    for i in users:
+        if (i not in db):
+            arr.append(i)
+    
+    return arr
