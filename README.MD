@@ -1,0 +1,3 @@
+## TODO:
+
+- handle errors better

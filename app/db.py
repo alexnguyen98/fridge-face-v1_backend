@@ -1,6 +1,5 @@
 import os
 import pickle # storing a python object into a serialized file
-import uuid
 import numpy
 
 threshold = 7;
@@ -26,10 +25,9 @@ def get_db():
             print(e)
     return database
 
-def save_db(embedding):
+def save_db(embedding, user):
     db = get_db()
-    id = uuid.uuid4()
-    db[id] = embedding
+    db[user] = embedding
 
     filename = get_filename()
     file = open(filename, "wb")
@@ -37,7 +35,6 @@ def save_db(embedding):
     file.close()
 
     print("* User saved")
-    return id
 
 def find_user(embedding):
     db = get_db()
@@ -49,3 +46,8 @@ def find_user(embedding):
             min_dist = min_dist
             user_id = str(key)
     return user_id
+
+def save_file(file, user):
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    filename = os.path.join(base_dir, 'uploads/profile', user + ".jpg")
+    file.save(filename)
