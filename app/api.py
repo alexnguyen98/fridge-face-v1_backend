@@ -1,8 +1,50 @@
 from flask import request, jsonify
 from app import app
-from ml import Facenet
-from app import db
-from app import image
+from app.db import DB
+from app.services.ml import ML
+from app.services.image import Image
+
+db = DB()
+ml = ML()
+image = Image()
+
+@app.route('/user/list')
+def get_usernames():
+    try:
+        return jsonify(users=db.get_avaiable_users())
+    except Exception as e:
+        print(e)
+    
+    return {}
+
+@app.route('/uploads/<path:path>')
+def serve_image(path):
+    try:
+        return image.serve_img(path)
+    except Exception as e:
+        print(e)
+    
+    return {}
+
+# NOTICE: For testing!
+@app.route('/reset')
+def reset():
+    db.reset_db()
+    return {}
+
+@app.route('/image/test2', methods = ["POST"])
+def imageTest2():
+    if ('file' not in request.files) or (not request.files['file']):
+        return "No image sent", 400
+    
+    file = request.files['file']
+
+    try:
+        image.bullshit(file)
+    except Exception as e:
+        print(e)
+
+    return {}
 
 @app.route('/user/register', methods = ["POST"])
 def register_user():
@@ -13,6 +55,7 @@ def register_user():
 
     file = request.files['file']
     user = request.form['user']
+    img = None
 
     if (not db.user_exist(user)):
         return "User doesnt exist", 403
@@ -20,13 +63,11 @@ def register_user():
         return "User already registered", 403
 
     try:
-        embedding = Facenet.get_embedding(file)
+        img = ml.process_img(file)
+        embedding = ml.get_embedding(img)
         db.save_db(embedding, user)
-    except Exception as e:
-        print(e)
-
-    try:
-        image.save_file(file, user)
+        image.save_img(img, user)
+        return jsonify(token="temporary_access_token=" + user)
     except Exception as e:
         print(e)
 
@@ -39,28 +80,12 @@ def login_user():
 
     try:
         file = request.files['user']
-        embedding = Facenet.get_embedding(file)
-        user_id = db.find_user(embedding)
-        return user_id
+        img = ml.process_img(file)
+        embedding = ml.get_embedding(img)
+        user = db.find_user(embedding)
+        if (user):
+            return jsonify(token="temporary_access_token=" + user)
     except Exception as e:
         print(e)
 
-    return {}
-
-@app.route('/uploads/<path:path>')
-def serve_image(path):
-    try:
-        return image.serve_img(path)
-    except Exception as e:
-        print(e)
-    
-    return {}
-
-@app.route('/user/list')
-def get_usernames():
-    try:
-        return jsonify(users=db.get_avaiable_users())
-    except Exception as e:
-        print(e)
-    
     return {}
