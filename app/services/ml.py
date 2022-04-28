@@ -41,7 +41,7 @@ def process_face(img):
     img = (img - mean) / std
     return img
 
-class ML:
+class MlService:
     model = None
 
     def __init__(self):
