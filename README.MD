@@ -1,9 +1,6 @@
-# Running
+## TODO:
 
-```
-1. build
-docker-compose build
-
-2. run
-docker-compose up
-```
+- handle errors better
+- split api routes to specific categories
+- test accuracy
+- best accuracy when face is not rotated

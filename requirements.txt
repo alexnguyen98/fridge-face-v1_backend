@@ -1,0 +1,6 @@
+flask
+mtcnn
+imutils
+keras==2.8.0
+tensorflow==2.8.0
+numpy==1.22.3
