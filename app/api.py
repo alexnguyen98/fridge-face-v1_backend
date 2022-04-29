@@ -95,20 +95,6 @@ def login_user():
 
     return {}
 
-@app.route('/product/<barcode>')
-def scan_product(barcode):
-    if (not barcode):
-        return "No barcode sent", 400
-
-    return jsonify(
-        id=1, 
-        max=5, 
-        img="https://storage.googleapis.com/images-sof-prd-9fa6b8b.sof.prd.v8.commerce.mi9cloud.com/product-images/zoom/00059600060211.jpg", 
-        title="Pomranc mnam piti", 
-        price=10, 
-        description="Pomeranc neni ovoce, change my mind"
-    )
-
 @app.route('/product/list')
 def get_products():
     if (not request.headers['token']):
