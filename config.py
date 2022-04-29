@@ -1,3 +1,7 @@
+# class Config():
+#     DEBUG = True
+#     ENV = "development"
+
 class Config():
-    DEBUG = True
-    ENV = "development"
+    DEBUG = False
+    ENV = "production"
