@@ -21,29 +21,29 @@ def serve_image(path):
     
     return {}
 
-# NOTICE: For testing!
-@app.route('/reset')
-def reset():
-    db.reset_db()
-    return {}
+# # NOTICE: For testing!
+# @app.route('/reset')
+# def reset():
+#     db.reset_db()
+#     return {}
 
-@app.route('/test')
-def imageTest2():
-    try:
-        userService.get_info("4facf1ac-35ac-43b2-aa00-bdc62cb4ef23")
-    except Exception as e:
-        print(e)
+# @app.route('/test')
+# def imageTest2():
+#     try:
+#         userService.get_info("4facf1ac-35ac-43b2-aa00-bdc62cb4ef23")
+#     except Exception as e:
+#         print(e)
 
-    return {}
+#     return {}
 
-@app.route('/user/list')
-def get_usernames():
-    try:
-        return jsonify(users=db.get_avaiable_users())
-    except Exception as e:
-        print(e)
+# @app.route('/user/list')
+# def get_usernames():
+#     try:
+#         return jsonify(users=db.get_avaiable_users())
+#     except Exception as e:
+#         print(e)
     
-    return {}
+#     return {}
 
 @app.route('/user/register', methods = ["POST"])
 def register_user():
@@ -97,8 +97,11 @@ def login_user():
 
 @app.route('/product/list')
 def get_products():
-    if (not request.headers['token']):
-        return "No user id sent", 400
+    try:
+        if (not request.headers.get('token')):
+            return "No user id sent", 400
+    except Exception as e:
+        print(e)
 
     user = request.headers['token']
 
@@ -114,7 +117,7 @@ def get_products():
 def purchase_products():
     if ('products' not in request.get_json()):
         return "No products purchased", 400
-    if (not request.headers['token']):
+    if (not request.headers.get('token')):
         return "No user id sent", 400
 
     products = request.get_json()
