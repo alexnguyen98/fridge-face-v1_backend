@@ -1,7 +1,9 @@
-# class Config():
-#     DEBUG = True
-#     ENV = "development"
-
-class Config():
+class ProdConfig():
+    FLASK_ENV = 'production'
     DEBUG = False
-    ENV = "production"
+    TESTING = False
+
+class DevConfig():
+    FLASK_ENV = 'development'
+    DEBUG = True
+    TESTING = True
