@@ -1,5 +1,5 @@
 from mtcnn.mtcnn import MTCNN
-from keras.models import load_model
+from tensorflow import keras
 import numpy
 import cv2
 
@@ -47,7 +47,7 @@ class MlService:
     def __init__(self):
         try:
             print("* Loading model...")
-            self.model = load_model('./model/facenet_keras.h5')
+            self.model = keras.models.load_model('./model/facenet_keras.h5')
             print("* Model loaded")
         except Exception as e:
             print(e)
