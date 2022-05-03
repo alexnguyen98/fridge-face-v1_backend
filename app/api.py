@@ -21,11 +21,11 @@ def serve_image(path):
     
     return {}
 
-# # NOTICE: For testing!
-# @app.route('/reset')
-# def reset():
-#     db.reset_db()
-#     return {}
+# NOTICE: For testing!
+@app.route('/reset')
+def reset():
+    db.reset_db()
+    return {}
 
 # @app.route('/test')
 # def imageTest2():
