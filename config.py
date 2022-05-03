@@ -1,3 +1,5 @@
+import os
+
 class ProdConfig():
     FLASK_ENV = 'production'
     DEBUG = False
@@ -8,5 +10,7 @@ class DevConfig():
     DEBUG = True
     TESTING = True
 
-CORP_SERVER = "https://corp.applifting.cz/api" # dev/prod
-# CORP_SERVER = "https://staging.corp.applifting.cz/api" # testing
+if (os.environ.get('FLASK_ENV') == 'development'):
+    CORP_SERVER = "https://staging.corp.applifting.cz/api" # testing
+else:
+    CORP_SERVER = "https://corp.applifting.cz/api" # dev/prod
