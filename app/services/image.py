@@ -14,6 +14,8 @@ class ImageService():
         img = imutils.resize(img, width=200)
         cv2.imwrite(os.path.join(filename, user + ".jpg"), cv2.cvtColor(img, cv2.COLOR_RGBA2BGRA))
 
+        print("image written")
+
     def serve_img(self, path):
         filename = get_filename()
         return send_from_directory(filename, path)
