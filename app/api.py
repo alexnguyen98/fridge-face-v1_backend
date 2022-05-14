@@ -27,24 +27,6 @@ def reset():
     db.reset_db()
     return {}
 
-# @app.route('/test')
-# def imageTest2():
-#     try:
-#         userService.get_info("4facf1ac-35ac-43b2-aa00-bdc62cb4ef23")
-#     except Exception as e:
-#         print(e)
-
-#     return {}
-
-# @app.route('/user/list')
-# def get_usernames():
-#     try:
-#         return jsonify(users=db.get_avaiable_users())
-#     except Exception as e:
-#         print(e)
-    
-#     return {}
-
 @app.route('/user/register', methods = ["POST"])
 def register_user():
     if ('file' not in request.files) or (not request.files['file']):
@@ -94,6 +76,23 @@ def login_user():
         print(e)
 
     return {}
+
+@app.route('/user/balance')
+def get_balance():
+    try:
+        if (not request.headers.get('token')):
+            return "No user id sent", 400
+    except Exception as e:
+        print(e)
+
+    user = request.headers['token']
+
+    try:
+        balance = userService.get_balance(user)
+        return balance
+    except Exception as e:
+        print(e)
+
 
 @app.route('/product/list')
 def get_products():

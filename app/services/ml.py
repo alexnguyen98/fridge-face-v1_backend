@@ -54,14 +54,10 @@ class MlService:
 
     def process_img(self, img):
         img = read_image(img)
-        print("1b")
         img = crop(img)
-        print("2b")
         return img
 
     def get_embedding(self, img):
         face = process_face(img)
-        print("2a")
         face = numpy.expand_dims(face, axis=0)
-        print("3a")
         return self.model.predict(face)

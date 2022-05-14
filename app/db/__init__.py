@@ -46,7 +46,7 @@ class DB():
         user_id = ""
         for key, value in self.db.items():
             dist = numpy.linalg.norm(value - embedding)
-            print("dist: " + str(dist))
+            print("* dist: " + str(dist))
             if (dist < threshold):
                 min_dist = min_dist
                 user_id = str(key)
