@@ -31,7 +31,7 @@ fridge-face-backend/
 ### Requirements
 
 - Python 3.7.2
-- pip3 3.7.2
+- pip3
 
 ### Usage
 
