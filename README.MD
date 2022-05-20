@@ -36,6 +36,9 @@ fridge-face-backend/
 ### Usage
 
 ```bash
+# Set development mode (FLASK_ENV=development/production)
+nano .env
+
 # Activate python venv
 python3 -m venv .venv
 source .venv/bin/activate
