@@ -3,7 +3,7 @@
 A digital shopping cart mobile application for the company [Applifting](https://www.applifting.cz/). </br>
 Bachelor thesis of Xuan Anh Nguyen, [CVUT FEL SIT](https://sit.fel.cvut.cz/) year 2022. <br/>
 
-This project aims to improve the food and drink purchase experience in a company for its employees and to further improve development efficiency with a hybrid application development approach using [Flask](https://flask.palletsprojects.com/en/2.1.x/) with [Tensorflow](https://www.tensorflow.org/).
+This project aims to improve the food and drink purchase experience in a company for its employees, using [Flask](https://flask.palletsprojects.com/en/2.1.x/) with [Tensorflow](https://www.tensorflow.org/).
 
 ## Resources
 
