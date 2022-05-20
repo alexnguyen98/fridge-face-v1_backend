@@ -3,7 +3,6 @@ import os
 import pickle # storing a python object into a serialized file
 import numpy
 
-users = ['ALN', 'KAJ', 'KOP', 'TEO', 'TRP', 'ROV', 'OMO', 'RAW', "DVO", "TON", "FKI", "DAF", "JPO", "RAF", "JAM", "VEK", "KNL", "JZE", "PRS", "ADH", "MAH", "PJC", "PEC", "ARY"]
 threshold = 7
 
 def get_filename():
@@ -24,9 +23,6 @@ class DB():
                 print("* DB loaded")
             except Exception as e:
                 print(e)
-
-    def user_exist(self, user):
-        return user in users
 
     def registered_exist(self, user):
         return user in self.db
@@ -52,14 +48,6 @@ class DB():
                 user_id = str(key)
 
         return user_id
-
-    def get_avaiable_users(self):
-        arr = []
-        for i in users:
-            if (i not in self.db):
-                arr.append(i)
-
-        return arr
 
     # NOTICE: For testing!
     def reset_db(self):

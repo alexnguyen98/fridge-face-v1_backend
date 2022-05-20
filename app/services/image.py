@@ -12,6 +12,8 @@ class ImageService():
     def save_img(self, img, user):
         filename = get_filename()
         img = imutils.resize(img, width=200)
+        if not os.path.exists(filename):
+            os.makedirs(filename)
         if not cv2.imwrite(os.path.join(filename, user + ".jpg"), cv2.cvtColor(img, cv2.COLOR_RGBA2BGRA)):
             raise Exception("Could not write image")
 

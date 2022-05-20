@@ -21,12 +21,6 @@ def serve_image(path):
     
     return {}
 
-# NOTICE: For testing!
-@app.route('/reset')
-def reset():
-    db.reset_db()
-    return {}
-
 @app.route('/user/register', methods = ["POST"])
 def register_user():
     if ('file' not in request.files) or (not request.files['file']):
@@ -38,8 +32,6 @@ def register_user():
     user = request.form['user']
     img = None
 
-    # if (not db.user_exist(user)):
-    #     return "User doesnt exist", 403
     if (db.registered_exist(user)):
         return "User already registered", 403
 
